@@ -17,7 +17,7 @@ impl ErrorTrait for EngineError {
                 format!("ROM size {} exceeds maximum allowed size", size)
             },
             EngineError::OpCodeNotFound { op_code } => {
-                format!("OpCode {:#04x} not found", op_code)
+                format!("OpCode {:#06X} not found", op_code)
             },
 
             EngineError::DisplayError(e) => e.to_string(),

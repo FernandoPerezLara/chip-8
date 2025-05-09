@@ -17,7 +17,7 @@ pub struct Engine {
     stack: [u16; 16],
     sp: u8,
     delay_timer: u8,
-    // sound_timer: u8,
+    sound_timer: u8,
     input: Input,
     display: Display,
     random: MultiplyWithCarry,
@@ -33,7 +33,7 @@ impl Engine {
             stack: [0; 16],
             sp: 0,
             delay_timer: 0,
-            // sound_timer: 0,
+            sound_timer: 0,
             input: Input::new(),
             display: Display::new(),
             random: random::MultiplyWithCarry::new(42),
@@ -209,7 +209,7 @@ impl Engine {
                 // FX15 | LD DT, VX | Sets the delay timer to VX
                 (0x1, 0x5) => self.delay_timer = self.registers[register_x as usize],
                 // FX18 | LD ST, VX | Sets the sound timer to VX
-                (0x1, 0x8) => {} // TODO: Implement sound timer
+                (0x1, 0x8) => self.sound_timer = self.registers[register_x as usize],
                 // FX1E | ADD I, VX | Adds VX to I
                 (0x1, 0xE) => self.index += self.registers[register_x as usize] as u16,
                 // FX29 | LD F, VX | Sets I to the location of the sprite for the character in VX
@@ -273,11 +273,19 @@ impl Engine {
             self.delay_timer -= 1;
         }
 
+        if self.sound_timer > 0 {
+            self.sound_timer -= 1;
+        }
+
         Ok(())
     }
 
     pub fn get_display(&self) -> &[u8; WIDTH * HEIGHT] {
         self.display.get_memory()
+    }
+
+    pub fn is_sound_active(&self) -> bool {
+        self.sound_timer > 0
     }
 
     pub fn key_down(&mut self, key: u8) -> Result<(), EngineError> {

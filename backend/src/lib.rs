@@ -8,11 +8,11 @@ mod engine;
 mod error;
 mod input;
 
-// #[wasm_bindgen]
-// extern {
-//     #[wasm_bindgen(js_namespace = console)]
-//     fn error(s: &str);
-// }
+#[wasm_bindgen]
+extern {
+    #[wasm_bindgen(js_namespace = console)]
+    fn log(s: &str);
+}
 
 #[wasm_bindgen]
 pub struct Chip8 {
@@ -61,7 +61,14 @@ impl Chip8 {
     }
 
     #[wasm_bindgen]
+    pub fn is_sound_active(&self) -> bool {
+        self.engine.is_sound_active()
+    }
+
+    #[wasm_bindgen]
     pub fn key_down(&mut self, key: u8) -> Result<(), JsError> {
+        log(format!("Key down {}", key).as_str());
+
         if let Err(e) = self.engine.key_down(key) {
             return Err(JsError::new(&e.to_string()));
         }
@@ -71,6 +78,8 @@ impl Chip8 {
 
     #[wasm_bindgen]
     pub fn key_up(&mut self, key: u8) -> Result<(), JsError> {
+        log(format!("Key up {}", key).as_str());
+
         if let Err(e) = self.engine.key_up(key) {
             return Err(JsError::new(&e.to_string()));
         }
