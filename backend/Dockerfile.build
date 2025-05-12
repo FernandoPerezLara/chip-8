@@ -1,0 +1,16 @@
+##########################################
+# Base
+##########################################
+FROM rust:alpine AS base
+
+# Create app directory
+WORKDIR /usr/src/app
+
+
+##########################################
+# Build
+##########################################
+FROM base AS build
+
+# Install dependencies
+COPY Cargo.toml Cargo.lock ./
