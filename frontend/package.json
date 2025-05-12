@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build-engine": "wasm-pack build ../backend --release --target web --out-dir ../frontend/src/utils/wasm",
     "start": "next start",
     "lint": "next lint"
   },
