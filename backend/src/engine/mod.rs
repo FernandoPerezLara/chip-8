@@ -1,5 +1,7 @@
-use crate::display::{constants::{FONT_SET, HEIGHT, WIDTH}, Display};
+use crate::display::{constants::FONT_SET, Display};
+pub use crate::display::constants::{HEIGHT, WIDTH};
 use crate::input::Input;
+
 
 use constants::{MEMORY_SIZE, START_ADDRESS};
 use errors::EngineError;

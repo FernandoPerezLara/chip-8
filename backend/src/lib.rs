@@ -1,6 +1,6 @@
 use wasm_bindgen::{prelude::wasm_bindgen, JsError};
 
-use engine::Engine;
+use engine::{Engine, HEIGHT, WIDTH};
 use error::ErrorTrait;
 
 mod display;
@@ -16,7 +16,7 @@ extern {
 
 #[wasm_bindgen]
 pub struct Chip8 {
-    engine: Engine,
+    engine: Engine
 }
 
 #[wasm_bindgen]
@@ -24,8 +24,16 @@ impl Chip8 {
     #[wasm_bindgen(constructor)]
     pub fn new() -> Self {
         Self {
-            engine: Engine::new(),
+            engine: Engine::new()
         }
+    }
+
+    pub fn get_width(&self) -> usize {
+        WIDTH
+    }
+
+    pub fn get_height(&self) -> usize {
+        HEIGHT
     }
 
     #[wasm_bindgen]
@@ -67,8 +75,6 @@ impl Chip8 {
 
     #[wasm_bindgen]
     pub fn key_down(&mut self, key: u8) -> Result<(), JsError> {
-        log(format!("Key down {}", key).as_str());
-
         if let Err(e) = self.engine.key_down(key) {
             return Err(JsError::new(&e.to_string()));
         }
@@ -78,8 +84,6 @@ impl Chip8 {
 
     #[wasm_bindgen]
     pub fn key_up(&mut self, key: u8) -> Result<(), JsError> {
-        log(format!("Key up {}", key).as_str());
-
         if let Err(e) = self.engine.key_up(key) {
             return Err(JsError::new(&e.to_string()));
         }
