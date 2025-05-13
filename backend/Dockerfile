@@ -17,6 +17,7 @@ RUN apt update && apt install -y libc6
 
 # Install proyect dependencies
 RUN rustup component add --toolchain nightly-x86_64-unknown-linux-gnu clippy rustfmt
+RUN rustup component add clippy
 RUN cargo install wasm-pack
 
 COPY Cargo.toml Cargo.lock ./
