@@ -19,7 +19,7 @@ jobs:
       - name: Check format
         run: |
           docker compose -f ./backend/docker-compose.yml run app \
-            cargo fmt --all -- --check --unstable-features
+          cargo +nightly fmt --all -- --check
 
       - name: Check mistakes and improvements
         run: |
