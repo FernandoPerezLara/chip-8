@@ -13,14 +13,14 @@ jobs:
 
       - name: Build image
         run: |
-          docker compose -f ./backend/docker-compose.yml build app
+          docker compose -f backend/docker-compose.yml build app
 
       - name: Build project
         run: |
-          docker compose -f ./backend/docker-compose.yml run \
+          docker compose -f backend/docker-compose.yml run \
             cargo build
 
       - name: Build WASM
         run: |
-          docker compose -f ./backend/docker-compose.yml run \
+          docker compose -f backend/docker-compose.yml run \
             wasm-pack build --target web
