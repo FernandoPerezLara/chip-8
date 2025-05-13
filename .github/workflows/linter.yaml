@@ -1,0 +1,25 @@
+name: Check code
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  linter:
+    name: Linter
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Build image
+        run: |
+          docker compose -f ./backend/docker-compose.yml build app
+
+      - name: Check format
+        run: |
+          docker compose -f ./backend/docker-compose.yml run \
+            cargo fmt --all -- --check --unstable-features
+
+      - name: Check mistakes and improvements
+        run: |
+          docker compose -f ./backend/docker-compose.yml run \
+            cargo clippy --all-targets --all-features -- -D warnings

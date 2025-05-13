@@ -1,0 +1,15 @@
+name: Run linter and build project
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  linter:
+    uses: ./.github/workflows/linter.yaml
+
+  builder:
+    needs: linter
+    uses: ./.github/workflows/builder.yaml
