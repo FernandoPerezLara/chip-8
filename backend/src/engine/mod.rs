@@ -1,7 +1,6 @@
-use crate::display::{constants::FONT_SET, Display};
 pub use crate::display::constants::{HEIGHT, WIDTH};
+use crate::display::{Display, constants::FONT_SET};
 use crate::input::Input;
-
 
 use constants::{MEMORY_SIZE, START_ADDRESS};
 use errors::EngineError;
@@ -179,13 +178,19 @@ impl Engine {
             0xE => match (register_y, operation) {
                 // EX9E | SKP VX | Skips the next instruction if the key stored in VX is pressed
                 (0x9, 0xE) => {
-                    if self.input.is_key_down(self.registers[register_x as usize])? {
+                    if self
+                        .input
+                        .is_key_down(self.registers[register_x as usize])?
+                    {
                         self.pc += 2;
                     }
                 },
                 // EXA1 | SKNP VX | Skips the next instruction if the key stored in VX is not pressed
                 (0xA, 0x1) => {
-                    if !self.input.is_key_down(self.registers[register_x as usize])? {
+                    if !self
+                        .input
+                        .is_key_down(self.registers[register_x as usize])?
+                    {
                         self.pc += 2;
                     }
                 },

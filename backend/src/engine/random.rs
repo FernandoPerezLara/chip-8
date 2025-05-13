@@ -1,5 +1,5 @@
 const CYCLE_SIZE: usize = 4096;
-const PHI: u32 = 0x9e3779b9;
+const PHI: u32 = 0x9E3779B9;
 
 pub struct MultiplyWithCarry {
     history: [u32; CYCLE_SIZE],

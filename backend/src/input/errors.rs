@@ -9,7 +9,7 @@ impl ErrorTrait for InputError {
         match self {
             InputError::OutOfBounds { index, size } => {
                 format!("Key index out of bounds: {} for size {}", index, size)
-            }
+            },
         }
     }
 }

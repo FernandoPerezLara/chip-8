@@ -1,4 +1,4 @@
-use wasm_bindgen::{prelude::wasm_bindgen, JsError};
+use wasm_bindgen::{JsError, prelude::wasm_bindgen};
 
 use engine::{Engine, HEIGHT, WIDTH};
 use error::ErrorTrait;
@@ -9,14 +9,14 @@ mod error;
 mod input;
 
 #[wasm_bindgen]
-extern {
+extern "C" {
     #[wasm_bindgen(js_namespace = console)]
     fn log(s: &str);
 }
 
 #[wasm_bindgen]
 pub struct Chip8 {
-    engine: Engine
+    engine: Engine,
 }
 
 #[wasm_bindgen]
@@ -24,7 +24,7 @@ impl Chip8 {
     #[wasm_bindgen(constructor)]
     pub fn new() -> Self {
         Self {
-            engine: Engine::new()
+            engine: Engine::new(),
         }
     }
 
@@ -89,5 +89,11 @@ impl Chip8 {
         }
 
         Ok(())
+    }
+}
+
+impl Default for Chip8 {
+    fn default() -> Self {
+        Chip8::new()
     }
 }

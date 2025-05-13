@@ -2,7 +2,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile.build
+      dockerfile: Dockerfile
     image: app
     container_name: app
     volumes:

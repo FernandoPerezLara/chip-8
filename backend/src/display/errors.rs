@@ -17,7 +17,7 @@ impl ErrorTrait for DisplayError {
                     "Coordinates out of bounds: ({}, {}) for display size ({}, {})",
                     x, y, width, height
                 )
-            }
+            },
         }
     }
 }
